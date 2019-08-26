@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import VideoList from './components/videoList';
 import VideoPlay from './components/common/videoPlay';
-import { getSearchResult, async } from './services/youtubeApi';
+import { getSearchResult } from './services/youtubeApi';
 import SearchVideo from './components/searchVideo';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
 
 class App extends Component {
 
@@ -12,21 +14,18 @@ class App extends Component {
     this.state = {
       videos: [],
       selectedVideo: null,
-      searchQuery: "hulk"
+      searchQuery: "hulk",
+      sumbit: 0
     };
   }
-
-  async componentDidMount() {
-
-    const videos = await getSearchResult(this.state.searchQuery)
-    const selectedVideo = videos[0];
-    this.setState({ videos, selectedVideo })
-  }
-
   async componentDidUpdate() {
-    const videos = await getSearchResult(this.state.searchQuery)
-    const selectedVideo = videos[0];
-    this.setState({ videos, selectedVideo })
+    if (this.state.sumbit === 1) {
+      const videos = await getSearchResult(this.state.searchQuery)
+      const selectedVideo = videos[0];
+      this.setState({ videos, selectedVideo, sumbit: 0 })
+    } else if (this.state.sumbit === 2) {
+      this.setState({ sumbit: 0 })
+    }
   }
 
   handleSearch = (query) => {
@@ -34,19 +33,21 @@ class App extends Component {
   }
 
   handleVideoSelect = (video) => {
-    this.setState({ selectedVideo: video })
+    this.setState({ selectedVideo: video, sumbit: 2 })
   }
-  handleSubmit = ()=> {
-    
+  handleSubmit = () => {
+    this.setState({ sumbit: 1 })
   }
   render() {
     const { videos, searchQuery, selectedVideo } = this.state
+    console.log('hello')
     return (
-      <React.Fragment>
+      <div className="container">
+        <ToastContainer />
         <SearchVideo
           value={searchQuery}
           onChange={this.handleSearch}
-          onSubmit = {this.handleSubmit}
+          onSubmit={this.handleSubmit}
         />
         <VideoPlay
           video={selectedVideo}
@@ -56,7 +57,7 @@ class App extends Component {
           onItemSelect={this.handleVideoSelect}
           selectedVideo={this.selectedVideo}
         />
-      </React.Fragment>
+      </div>
     );
   }
 }

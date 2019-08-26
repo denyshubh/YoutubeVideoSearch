@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 class VideoItem extends Component {
   render() {
-    const { imageUrl, title, description, classes } = this.props;
+    const { imageUrl, title, description, onClick, classes } = this.props;
     return (
-      <li className={classes}>
+      <li className={classes} onClick={onClick}>
         <div className="video-list media">
           <div className="media-left">
             <img src={imageUrl} alt="YouTube" className="media-object" />
