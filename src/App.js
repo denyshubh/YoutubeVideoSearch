@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import VideoList from './components/videoList';
 import VideoPlay from './components/common/videoPlay';
-import { getSearchResult } from './services/youtubeApi';
 import SearchVideo from './components/searchVideo';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
@@ -12,50 +11,34 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      videos: [],
       selectedVideo: null,
-      searchQuery: "hulk",
-      sumbit: 0
-    };
-  }
-  async componentDidUpdate() {
-    if (this.state.sumbit === 1) {
-      const videos = await getSearchResult(this.state.searchQuery)
-      const selectedVideo = videos[0];
-      this.setState({ videos, selectedVideo, sumbit: 0 })
-    } else if (this.state.sumbit === 2) {
-      this.setState({ sumbit: 0 })
+      searchQuery: ""
     }
   }
 
-  handleSearch = (query) => {
-    this.setState({ searchQuery: query, selectedVideo: null });
+  handleVideoSelect = (video) => {
+    this.setState({ selectedVideo: video })
   }
 
-  handleVideoSelect = (video) => {
-    this.setState({ selectedVideo: video, sumbit: 2 })
+  handleSubmit = (query) => {
+    this.setState({ searchQuery: query })
   }
-  handleSubmit = () => {
-    this.setState({ sumbit: 1 })
-  }
+
   render() {
-    const { videos, searchQuery, selectedVideo } = this.state
-    console.log('hello')
+    const { searchQuery, selectedVideo } = this.state
     return (
       <div className="container">
         <ToastContainer />
         <SearchVideo
-          value={searchQuery}
-          onChange={this.handleSearch}
           onSubmit={this.handleSubmit}
         />
         <VideoPlay
           video={selectedVideo}
         />
         <VideoList
-          videos={videos}
+          searchQuery={searchQuery}
           onItemSelect={this.handleVideoSelect}
-          selectedVideo={this.selectedVideo}
+          selectedVideo={selectedVideo}
         />
       </div>
     );

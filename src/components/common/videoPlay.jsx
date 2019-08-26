@@ -5,11 +5,11 @@ class VideoPlay extends Component {
   render() {
     const { video } = this.props;
     if (!video) {
-      return <div>Loading ...</div>
+      return <React.Fragment></React.Fragment>
     }
     const url = `https://www.youtube.com/embed/${video.id.videoId}`;
     return (
-      <div className="video-detail col-md-8">
+      <div className="video-detail col-12 col-md-10 ml-md-5 mb-5 pl-md-3 ">
         <div className="embed-responsive embed-responsive-16by9">
           <iframe title={video.snippet.title} className="embed-responsive-item" src={url} frameBorder="0"></iframe>
         </div>
