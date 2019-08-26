@@ -5,15 +5,17 @@ class VideoItem extends Component {
     const { imageUrl, title, description, onClick, classes } = this.props;
     return (
       <li className={classes} onClick={onClick}>
-        <div className="video-list media">
-          <div className="media-left">
-            <img src={imageUrl} alt="YouTube" className="media-object" />
-          </div>
-          <div className="media-body">
-            <div className="media-heading">
-              {title}
+        <div className="card">
+          <div className='row'>
+            <div className="col-md-4">
+              <img src={imageUrl} alt="YouTube" className="img-fluid" />
             </div>
-            <p>{description}</p>
+            <div className="col">
+              <div className="card-title text-capitalize text-dark p-2 text-justify">
+                {title}
+              </div>
+              <p className="card-title text-muted pl-2 pr-2 pb-2 text-justify">{description}</p>
+            </div>
           </div>
         </div>
       </li>

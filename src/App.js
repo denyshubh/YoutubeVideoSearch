@@ -27,19 +27,21 @@ class App extends Component {
   render() {
     const { searchQuery, selectedVideo } = this.state
     return (
-      <div className="container">
+      <div>
         <ToastContainer />
         <SearchVideo
           onSubmit={this.handleSubmit}
         />
-        <VideoPlay
-          video={selectedVideo}
-        />
-        <VideoList
-          searchQuery={searchQuery}
-          onItemSelect={this.handleVideoSelect}
-          selectedVideo={selectedVideo}
-        />
+        <div className="row">
+          <VideoPlay
+            video={selectedVideo}
+          />
+          <VideoList
+            searchQuery={searchQuery}
+            onItemSelect={this.handleVideoSelect}
+            selectedVideo={selectedVideo}
+          />
+        </div>
       </div>
     );
   }

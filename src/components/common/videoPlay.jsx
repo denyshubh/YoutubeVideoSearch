@@ -9,13 +9,15 @@ class VideoPlay extends Component {
     }
     const url = `https://www.youtube.com/embed/${video.id.videoId}`;
     return (
-      <div className="video-detail col-12 col-md-10 ml-md-5 mb-5 pl-md-3 ">
-        <div className="embed-responsive embed-responsive-16by9">
-          <iframe title={video.snippet.title} className="embed-responsive-item" src={url} frameBorder="0"></iframe>
+      <div className="col col-12 col-lg-8">
+        <div className="embed-responsive embed-responsive-16by9 justify-content-center">
+          <iframe title={video.snippet.title} className="embed-responsive-item" src={url} frameBorder="1"></iframe>
         </div>
-        <div className='details'>
-          <div>{video.snippet.title}</div>
-          <div>{video.snippet.description}</div>
+        <div className='card p-2 '>
+          <div className="card-title text-bold text-dark text-justify">{video.snippet.title}</div>
+          <div className="card-body text-light text-muted text-justify">
+            <p>{video.snippet.description}</p>
+          </div>
         </div>
       </div>
     );

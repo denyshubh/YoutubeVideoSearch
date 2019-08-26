@@ -24,17 +24,19 @@ class VideoList extends Component {
   }
   render() {
     return (
-      <ul>
-        {this.state.videos.map(video =>
-          <VideoItem
-            key={video.id.videoId}
-            imageUrl={video.snippet.thumbnails.default.url}
-            title={video.snippet.title}
-            description={video.snippet.description}
-            onClick={() => this.handleClick(video)}
-            classes={video === this.state.selectedVideo ? 'list-group-item p-3 active' : 'list-group-item p-3'}
-          />)}
-      </ul>
+      <div className="col">
+        <ul className="list-group">
+          {this.state.videos.map(video =>
+            <VideoItem
+              key={video.id.videoId}
+              imageUrl={video.snippet.thumbnails.medium.url}
+              title={video.snippet.title}
+              description={video.snippet.description}
+              onClick={() => this.handleClick(video)}
+              classes={video === this.state.selectedVideo ? 'list-group-item active' : 'list-group-item '}
+            />)}
+        </ul>
+      </div>
     );
   }
 }

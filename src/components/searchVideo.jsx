@@ -15,21 +15,20 @@ class SearchVideo extends Component {
   render() {
     const { onSubmit } = this.props;
     return (
-      <div className='row p-2 container pl-5'>
-        <div className="col-8">
+      <nav className="navbar navbar-dark bg-dark justify-content-between">
+        <span className="navbar-brand">Youtube API</span>
+        <div className="form-inline">
           <input
-            type="text"
+            type="search"
             name="query"
-            className="form-control"
+            className="form-control mr-sm-2"
             placeholder="Search..."
             value={this.state.query}
             onChange={this.handleChange}
           />
+          <button className="btn btn-outline-primary my-2 my-sm-0" onClick={() => onSubmit(this.state.query)}>Search</button>
         </div>
-        <div className="col">
-          <button className="btn btn-primary" onClick={() => onSubmit(this.state.query)}>Search</button>
-        </div>
-      </div>
+      </nav>
     );
   }
 }
